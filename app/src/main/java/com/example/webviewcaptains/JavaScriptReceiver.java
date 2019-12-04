@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
@@ -54,32 +55,29 @@ public class JavaScriptReceiver {
     // i retornem un valor que si que entenga angular
     @JavascriptInterface
     public double getLatitude(){
-        Promise p  = new Promise();
+        Promise p = new Promise();
+        Double latitud = 0.0;
         GPSTracker gps = new GPSTracker(mContext);
-        Double latitud = 38.9;
         latitud = gps.getLocation().getLatitude();
         p.resolve(latitud);
         p.reject("Something failed");
-
-        p.then( (res) -> this.latitude = ((double)res));
-
-        Log.v("LATITUD:", Double.toString(this.latitude));
+        new AsyncTaskLatitude().execute(p);
         return this.latitude;
     }
     @JavascriptInterface
-    public double getLongitude(){
-        Promise p  = new Promise();
+    public double getLongitude() {
+        Promise p = new Promise();
+        Double longitud = 0.0;
         GPSTracker gps = new GPSTracker(mContext);
-        Double longitud = -1.0;
         longitud = gps.getLocation().getLongitude();
         p.resolve(longitud);
         p.reject("Something failed");
+        new AsyncTaskLongitude().execute(p);
 
-
-        p.then( (res) -> this.longitude = ((double)res));
 
         return this.longitude;
     }
+
 
 
 
@@ -141,7 +139,67 @@ public class JavaScriptReceiver {
 //
 //        return longitud;
 //    }
-//    }
+    public class AsyncTaskLongitude extends AsyncTask<Promise, Double, Double> {
+
+        Double longitud;
+
+
+
+    @Override
+    protected void onPreExecute() {
+
+    }
+    @Override
+    protected Double doInBackground(Promise... promises) {
+
+        Promise p = promises[0];
+
+        p.then( (res) -> {
+            longitud = ((double)res);
+            publishProgress(longitud);
+            return true;
+        });
+
+        return longitud;
+    }
+
+    @Override
+    protected void onProgressUpdate(Double... values) {
+        longitude = values[0];
+    }
+}
+
+    public class AsyncTaskLatitude extends AsyncTask<Promise, Double, Double> {
+
+        Double latitud;
+
+
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+        @Override
+        protected Double doInBackground(Promise... promises) {
+
+            Promise p = promises[0];
+
+            p.then( (res) -> {
+                latitud = ((double)res);
+                publishProgress(latitud);
+                return true;
+            });
+
+            return latitud;
+        }
+
+        @Override
+        protected void onProgressUpdate(Double... values) {
+            latitude = values[0];
+        }
+    }
+
+}
 
 
 
