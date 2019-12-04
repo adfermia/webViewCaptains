@@ -63,7 +63,7 @@ public class JavaScriptReceiver {
 
         p.then( (res) -> this.latitude = ((double)res));
 
-
+        Log.v("LATITUD:", Double.toString(this.latitude));
         return this.latitude;
     }
     @JavascriptInterface
@@ -118,28 +118,30 @@ public class JavaScriptReceiver {
         mContext =c;
     }
 
-    @JavascriptInterface
-    public double getLatitud() {
-        double latitud = 0.0;
 
-        GPSTracker gps = new GPSTracker(mContext);
+    // Aquestes eren les funcions que gastava abans de la que gasta la promesa
+//    @JavascriptInterface
+//    public double getLatitud() {
+//        double latitud = 0.0;
+//
+//        GPSTracker gps = new GPSTracker(mContext);
+//
+//        latitud = gps.getLocation().getLatitude();
+//
+//        return latitud;
+//        }
 
-        latitud = gps.getLocation().getLatitude();
-
-        return latitud;
-        }
-
-    @JavascriptInterface
-    public double getLongitud() {
-        double longitud = 0.0;
-
-        GPSTracker gps = new GPSTracker(mContext);
-
-        longitud = gps.getLocation().getLongitude();
-
-        return longitud;
-    }
-    }
+//    @JavascriptInterface
+//    public double getLongitud() {
+//        double longitud = 0.0;
+//
+//        GPSTracker gps = new GPSTracker(mContext);
+//
+//        longitud = gps.getLocation().getLongitude();
+//
+//        return longitud;
+//    }
+//    }
 
 
 
