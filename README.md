@@ -2,5 +2,4 @@
 It's an android app for displaying my angular webApp in a webview
 
 # README
-If u want to use this app, u have to download my angular project and run it. You can download it at:
-https://github.com/adfermia/ProjecteHereMaps
+Now if you want to run this app, you just have to download it and run it on android studio, or build your apk
