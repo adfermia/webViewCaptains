@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setPluginState(WebSettings.PluginState.ON);
         webSettings.setMediaPlaybackRequiresUserGesture(false);
-
+        webSettings.setAllowFileAccessFromFileURLs(true);
+        webSettings.setAllowUniversalAccessFromFileURLs(true);
 
 
 
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         setContentView(myWebView);
-        myWebView.loadUrl("http://10.0.2.2:4200/");
+        myWebView.loadUrl("file:///android_asset/dist/webmpcaptains/index.html");
 
     }
 

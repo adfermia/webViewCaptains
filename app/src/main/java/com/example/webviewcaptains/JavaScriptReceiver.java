@@ -58,6 +58,8 @@ public class JavaScriptReceiver {
         Promise p = new Promise();
         Double latitud = 0.0;
         GPSTracker gps = new GPSTracker(mContext);
+        boolean b = gps==null;
+        Log.v("GPS", Boolean.toString(b));
         latitud = gps.getLocation().getLatitude();
         p.resolve(latitud);
         p.reject("Something failed");
